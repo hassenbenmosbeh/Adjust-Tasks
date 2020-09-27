@@ -7,3 +7,7 @@ if this number exists in the table we do not store it,otherwise we store it, the
 ##Usage##
 using the chmod command make the file task1.sh executable
 chmod +x /path/to/task1.sh
+
+
+##How to Run##
+./task1.sh
