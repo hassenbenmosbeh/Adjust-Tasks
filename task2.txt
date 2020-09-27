@@ -1,0 +1,22 @@
+let's take the hypothesis 1 request = 1Mb
+max extreme case 25000 requests = 25000 MB = 25 Gb
+the cpu is used for ssl decryption / encryption
+   - Idle: must not be less than 10%: otherwise the number of cpu is not sufficient to decrypt the messages and the ssl handshake
+   - the metric expresses the percentage of free cpu in the machine And must not exceed 90% => watch cpu wait
+   - cpu wait: I / o bottelneck,if for example the disk is loaded so the cpu is idle it means that the cpu should to wait until the disk is free to perform a storage task
+   - Memory: in the worst case, there will be 25Gb arriving from incoming traffic so you have to supervise with the command free the metrics:
+     buff / cache: it must be high = 0.2 * (60-25) to speed the I/O of the disk
+   - Swap: it must be less than 20% otherwise it alerts an insufficient memory
+   - Disk: the partition which stores the metadata of the requests (if there is one) must be supervised : the disk space must not be restored otherwise the server spits out (free disk space <2tb)
+   - Networking: it is necessary to support the inbound and outbound tcp packets with tcpdump, the bandwith with the  command iftop
+     so as not to saturate the bandwidth tcpdump metrics must be tested on both interfaces network (for the reason that the load must be distributed on both interfaces for the proper functioning of the 
+     server)
+
+
+
+
+the challenges of monitoring SSL offloading Server
+
+ - Producing Meaningful Context of Events : you can determine the actual status of both the application servers and the overall application end point (Virtual Service) since the load balancer will         	typically already be performing health checks on the application servers
+ - Maintain Well-Balanced Traffic
+ - Scalability
